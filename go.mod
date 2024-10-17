@@ -1,0 +1,1 @@
+module news-feed-bot
