@@ -7,6 +7,8 @@ import (
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 	"log"
+	"news-feed-bot/internal/bot"
+	"news-feed-bot/internal/botkit"
 	"news-feed-bot/internal/config"
 	"news-feed-bot/internal/fetcher"
 	"news-feed-bot/internal/notifier"
@@ -54,6 +56,9 @@ func main() {
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer cancel()
 
+	newsBot := botkit.New(botAPI)
+	newsBot.RegisterCmdView("start", bot.ViewCmdStart())
+
 	go func(ctx context.Context) {
 		if err := fetcher.Start(ctx); err != nil {
 			if !errors.Is(err, context.Canceled) {
@@ -65,14 +70,23 @@ func main() {
 		}
 	}(ctx)
 
-	//go func(ctx context.Context) {
-	if err := notifier.Start(ctx); err != nil {
+	go func(ctx context.Context) {
+		if err := notifier.Start(ctx); err != nil {
+			if !errors.Is(err, context.Canceled) {
+				log.Printf("[ERROR] failed to start notifier: %v", err)
+				return
+			}
+
+			log.Printf("notifier stopped")
+		}
+	}(ctx)
+
+	if err := newsBot.Run(ctx); err != nil {
 		if !errors.Is(err, context.Canceled) {
-			log.Printf("[ERROR] failed to start notifier: %v", err)
+			log.Printf("[ERROR] failed to run bot: %v", err)
 			return
 		}
 
-		log.Printf("notifier stopped")
+		log.Printf("bot stopped")
 	}
-	//}(ctx)
 }
