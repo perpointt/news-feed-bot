@@ -100,7 +100,7 @@ func (s *ArticlePostgresStorage) MarkAsPosted(ctx context.Context, article model
 
 type dbArticle struct {
 	ID          int64        `db:"id"`
-	SourceID    int64        `db:"id"`
+	SourceID    int64        `db:"source_id"`
 	Title       string       `db:"title"`
 	Link        string       `db:"link"`
 	Summary     string       `db:"summary"`

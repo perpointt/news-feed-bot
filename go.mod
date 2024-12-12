@@ -9,8 +9,9 @@ require (
 	github.com/go-shiori/go-readability v0.0.0-20241012063810-92284fa8a71f
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
 	github.com/jmoiron/sqlx v1.4.0
-	github.com/openai/openai-go v0.1.0-alpha.39
+	github.com/lib/pq v1.10.9
 	github.com/samber/lo v1.47.0
+	github.com/sashabaranov/go-openai v1.36.0
 	go.tomakado.io/containers v0.0.0-20240306123358-5f64d4e0f4f3
 )
 
@@ -22,11 +23,6 @@ require (
 	github.com/gogs/chardet v0.0.0-20211120154057-b7413eaefb8f // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
-	github.com/sashabaranov/go-openai v1.36.0 // indirect
-	github.com/tidwall/gjson v1.14.4 // indirect
-	github.com/tidwall/match v1.1.1 // indirect
-	github.com/tidwall/pretty v1.2.1 // indirect
-	github.com/tidwall/sjson v1.2.5 // indirect
 	golang.org/x/net v0.32.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
 )
